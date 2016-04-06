@@ -88,33 +88,27 @@ module.exports = {
         });
     },
 
-    loadRedis: function loadRedis() {
+    loadRedis: function loadRedis(redis_url,password) {
         var redis = require('redis');
         var url = require('url');
-        var redisURL = url.parse("redis://127.0.0.1:6379/0");
+        var redisURL = url.parse(redis_url);
         var redisSub, redisPub, redisGetSet = null;
+
+        // use environment redis connection info.
+        redisURL = url.parse(redis_url);
+        redisSub = redis.createClient(redisURL.port, redisURL.hostname, {
+            no_ready_check: true
+        });
+        redisPub = redis.createClient(redisURL.port, redisURL.hostname, {
+            no_ready_check: true
+        });
+        redisGetSet = redis.createClient(redisURL.port, redisURL.hostname, {
+            no_ready_check: true
+        });
+        redisSub.auth(password);
+        redisPub.auth(password);
+        redisGetSet.auth(password);
         
-        if (process.env.REDISCLOUD_URL == null) {
-            // use local client if there's no redis cloud url set up.
-            redisSub = redis.createClient();
-            redisPub = redis.createClient();
-            redisGetSet = redis.createClient();
-        } else {
-            // use environment redis connection info.
-            redisURL = url.parse(process.env.REDISCLOUD_URL);
-            redisSub = redis.createClient(redisURL.port, redisURL.hostname, {
-                no_ready_check: true
-            });
-            redisPub = redis.createClient(redisURL.port, redisURL.hostname, {
-                no_ready_check: true
-            });
-            redisGetSet = redis.createClient(redisURL.port, redisURL.hostname, {
-                no_ready_check: true
-            });
-            redisSub.auth(redisURL.auth.split(":")[1]);
-            redisPub.auth(redisURL.auth.split(":")[1]);
-            redisGetSet.auth(redisURL.auth.split(":")[1]);
-        }
 
         redisSub.subscribe('realtime_msg');
 
