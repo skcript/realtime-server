@@ -117,5 +117,5 @@ module.exports = {
             sub: redisSub,
             getSet: redisGetSet,
         };
-    }
+    },
 }
