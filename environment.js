@@ -10,7 +10,7 @@ module.exports = {
         console.log('STARTING ON PORT: ' + port);
 
         var io = require('socket.io').listen(Number(port));
-        var socket = io.connect('//localhost');
+        // var socket = io.connect('//localhost');
 
         io.on('connection', function(socket) {
 
