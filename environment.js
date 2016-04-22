@@ -4,7 +4,7 @@ module.exports = {
 
         var port = process.env.PORT || 5001;
         if (process.env.NODE_ENV != 'production') {
-            port = 5001; // run on a different port when in non-production mode.
+            port = 8080; // run on a different port when in non-production mode.
         }
 
         console.log('STARTING ON PORT: ' + port);
