@@ -118,4 +118,11 @@ module.exports = {
             getSet: redisGetSet,
         };
     },
+    var ssl = {
+    key: fs.readFileSync('/etc/letsencrypt/live/findmybusnj.com/privkey.pem'),
+    cert: fs.readFileSync('/etc/letsencrypt/live/findmybusnj.com/fullchain.pem'),
+    ca: fs.readFileSync('/etc/letsencrypt/live/findmybusnj.com/chain.pem')
+    },
+    http.createServer(app).listen(process.env.PORT || 8000);
+    https.createServer(ssl, app).listen(process.env.PORT || 8080);
 }
