@@ -5,7 +5,7 @@
     "dependencies": {
         "socket.io": "1.0.x",
         "redis": "0.7.3",
-        "pg": "2.11.0",
+        "pg": "8.3.3",
         "underscore": "1.5.2",
         "cookie": "0.1.x",
         "sentry-node": "0.2.x",
